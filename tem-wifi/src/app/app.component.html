@@ -1,0 +1,30 @@
+<div>
+  <mat-toolbar class="color-lb">
+    <span id="name">Tem Wi-Fi?</span>
+    <form class="form" [formGroup]="menuSearchForm" (ngSubmit)="onSubmit(menuSearchForm)">
+      <mat-form-field class="color-lb">
+        <input matInput 
+          color="primary"
+          formControlName="searchInput"
+          [errorStateMatcher]="matcher"
+          type="search"
+        >
+      </mat-form-field>
+    </form>
+    <span id="search-icon">
+      <mat-icon>search</mat-icon>
+    </span>
+    <span *ngIf="email" class="color-lg">
+      <button mat-button (click)="onClickLogout()">
+          <mat-icon>person</mat-icon> {{email}} | Sair <mat-icon>exit_to_app</mat-icon>
+      </button>
+    </span>
+    <span *ngIf="!email" class="color-lg">
+      <button mat-button (click)="onClickLogout()" routerLink="/login">
+          <mat-icon>person</mat-icon> Login | Nono Cadastro
+      </button>
+    </span>
+  </mat-toolbar>
+</div>
+
+<router-outlet></router-outlet>

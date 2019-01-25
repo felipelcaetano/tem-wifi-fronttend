@@ -1,0 +1,104 @@
+/* You can add global styles to this file, and also import other style files */
+@import "~@angular/material/prebuilt-themes/indigo-pink.css";
+@import "mixins";
+@import "material-theme";
+@import "variables";
+
+body {
+    margin: 0;
+    font-family: $font-default;
+    background: $dark-blue;
+}
+
+.w-15 {
+    width: 15%;
+}
+
+.w-18 {
+    width: 18%;
+}
+
+.w-20 {
+    width: 20%;
+}
+
+.w-25 {
+    width: 25%;
+}
+
+.w-28 {
+    width: 28%;
+}
+
+.w-30 {
+    width: 30%;
+}
+
+.w-40 {
+    width: 40%;
+}
+
+.w-48 {
+    width: 48%;
+}
+
+.w-50 {
+    width: 50%;
+}
+
+.w-70 {
+    width: 70%;
+}
+
+.w-100 {
+    width: 100%;
+}
+
+.d-flex {
+    display: flex;
+    align-items: center;
+}
+
+.d-block {
+    display: block;
+}
+
+.j-center {
+    justify-content: center;
+}
+
+.flex-wrap {
+    flex-wrap: wrap;
+}
+
+.text-center {
+    text-align: center;
+}
+
+.text-left {
+    text-align: left;
+}
+
+.text-right {
+    text-align: right;
+}
+
+.font-default {
+    font-family: $font-default;
+}
+
+.pad-r-7 {
+    padding-right: 7px !important;
+}
+
+.color-db {
+    color: $dark-blue;
+}
+
+.color-lb {
+    color: $light-blue;
+}
+
+.color-lg {
+    color: $light-green;
+}

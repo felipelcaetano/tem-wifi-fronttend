@@ -1,0 +1,104 @@
+<div id="login-div">
+  <mat-card class="example-card">
+    <mat-progress-bar *ngIf="loggingIn" mode="indeterminate" color="primary"></mat-progress-bar>
+    <mat-card-header>
+      <mat-card-title class="color-db">LOGIN</mat-card-title>
+    </mat-card-header>
+    <mat-card-content>
+      <form class="form" *ngIf="!isNewUser" [formGroup]="loginForm" (ngSubmit)="onSubmitLogin(loginForm)">
+        <mat-form-field>
+          <input matInput 
+            placeholder="Email" 
+            formControlName="user"
+            [errorStateMatcher]="matcher"
+            type="text"
+          >
+          <mat-hint>Informe seu email</mat-hint>
+          <mat-error *ngIf="user.hasError('required')">
+            Email é <strong>obrigatório</strong>
+          </mat-error>
+          <mat-error *ngIf="user.hasError('email')">
+            Email <strong>inválido</strong>
+          </mat-error>
+        </mat-form-field>
+        <mat-form-field>
+          <input matInput 
+            placeholder="Senha" 
+            formControlName="pass"
+            [errorStateMatcher]="matcher"
+            type="password"
+          >
+          <mat-hint>Senha</mat-hint>
+          <mat-error *ngIf="newUserPass.hasError('required')">
+            Senha é <strong>obrigatória</strong>
+          </mat-error>
+        </mat-form-field>
+        <div class="button-div">
+          <button type="submit" mat-raised-button color="accent" [disabled]="loginForm.invalid">Logar</button>
+          <button mat-raised-button color="primary" (click)="onClickNewUser()">Novo Cadastro</button>
+        </div>
+        <div *ngIf="error" class="error-div">
+          <p>{{error}}</p>
+        </div>
+      </form>
+
+
+
+      <form class="form" *ngIf="isNewUser" [formGroup]="newUserForm" (ngSubmit)="onSubmitNewUser(newUserForm)">
+        <mat-form-field>
+          <input matInput 
+            placeholder="Email" 
+            formControlName="newUser"
+            [errorStateMatcher]="matcher"
+            type="text"
+          >
+          <mat-hint>Informe seu email</mat-hint>
+          <mat-error *ngIf="newUser.hasError('required')">
+            Email é <strong>obrigatório</strong>
+          </mat-error>
+          <mat-error *ngIf="newUser.hasError('email')">
+            Email <strong>inválido</strong>
+          </mat-error>
+        </mat-form-field>
+
+        <mat-form-field>
+          <input matInput 
+            placeholder="Senha" 
+            formControlName="newPass"
+            [errorStateMatcher]="matcher"
+            type="password"
+          >
+          <mat-hint>Senha</mat-hint>
+          <mat-error *ngIf="newUserPass.hasError('required')">
+            Senha é <strong>obrigatória</strong>
+          </mat-error>
+        </mat-form-field>
+
+        <mat-form-field (keyup)="onKeyupPassCheck($event)">
+          <input matInput 
+            placeholder="Repita a Senha" 
+            formControlName="passCheck"
+            [errorStateMatcher]="matcher"
+            type="password"
+          >
+          <mat-hint>Senha</mat-hint>
+          <mat-error *ngIf="passCheck.hasError('required')">
+            Senha é <strong>obrigatória</strong>
+          </mat-error>
+          <mat-error *ngIf="passCheck.hasError('invalid')">
+            As senhas <strong>não batem</strong>
+          </mat-error>
+        </mat-form-field>
+        <div class="button-div">
+          <button mat-raised-button id="voltar-button" (click)="onClickBack()">Voltar</button>
+          <button type="submit" mat-raised-button color="primary" [disabled]="newUserForm.invalid">Cadastrar</button>
+        </div>
+        <div *ngIf="error" class="error-div">
+          <p>{{error}}</p>
+        </div>
+      </form>
+
+
+    </mat-card-content>
+  </mat-card>  
+</div>
