@@ -28,7 +28,7 @@ export class AppComponent implements OnInit, OnDestroy {
   title = 'tem-wifi';
   mobileQuery: MediaQueryList;
 
-  public userEmail: string = '';
+  public email: string = '';
 
   menuSearchForm: FormGroup;
 
@@ -64,7 +64,7 @@ export class AppComponent implements OnInit, OnDestroy {
               .subscribe(
                 resp => {
                   console.log('data: ' + JSON.stringify(resp));
-                  this.userEmail = resp.email;
+                  this.email = resp.email;
                 },
                 error => console.log(error)
               )
@@ -78,7 +78,7 @@ export class AppComponent implements OnInit, OnDestroy {
 
   onClickLogout() {
     this.loginService.logout();
-    this.userEmail = '';
+    this.email = '';
     this.subscribeLogin();
     this.router.navigate(['/login']);
   }
@@ -86,7 +86,7 @@ export class AppComponent implements OnInit, OnDestroy {
   subscribeLogin(): void {
     this.loginService.login$.subscribe(email => {
       console.log(email)
-      this.userEmail = email})
+      this.email = email})
   }
 
   get searchInput() { return this.menuSearchForm.get('searchInput'); }

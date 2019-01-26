@@ -8,5 +8,22 @@ mat-toolbar {
         font-size: 2rem;
         margin: 0 10px;
     }
+
+    .title {
+        margin-left: 10%;
+    }
+
+    .sobre {
+        margin-right: 10%;
+        margin-left: auto;
+
+        span {
+            font-size: 1.3rem;
+        }
+    }
+
+    .loggedInSpan {
+        margin-left: auto;
+    }
 }
 

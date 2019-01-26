@@ -1,6 +1,8 @@
 <div>
   <mat-toolbar class="color-lb">
-    <span id="name">Tem Wi-Fi?</span>
+    <button mat-button class="title">
+      <span id="name" routerLink="/avaliacoes" routerLinkActive="active">Tem Wi-Fi?</span>
+    </button>
     <form class="form" [formGroup]="menuSearchForm" (ngSubmit)="onSubmit(menuSearchForm)">
       <mat-form-field class="color-lb">
         <input matInput 
@@ -11,20 +13,28 @@
         >
       </mat-form-field>
     </form>
-    <span id="search-icon">
+    <button mat-button id="search-icon" (click)="onSubmit(menuSearchForm)">
       <mat-icon>search</mat-icon>
-    </span>
-    <span *ngIf="email" class="color-lg">
+    </button>
+    <span *ngIf="email" class="color-lg loggedInSpan">
+      <button mat-button routerLink="/avaliacoes">
+          <mat-icon>thumbs_up_down</mat-icon> Minhas Avaliações
+      </button>
       <button mat-button (click)="onClickLogout()">
           <mat-icon>person</mat-icon> {{email}} | Sair <mat-icon>exit_to_app</mat-icon>
       </button>
     </span>
     <span *ngIf="!email" class="color-lg">
-      <button mat-button (click)="onClickLogout()" routerLink="/login">
-          <mat-icon>person</mat-icon> Login | Nono Cadastro
+      <button mat-button (click)="onClickLogout()" routerLink="/login" routerLinkActive="active">
+          <mat-icon>person</mat-icon> Login | Novo Cadastro
       </button>
     </span>
+    <button mat-button class="sobre" routerLink="/avaliacoes" routerLinkActive="active">
+      <span class="color-lg">Sobre</span>
+    </button>
   </mat-toolbar>
 </div>
 
-<router-outlet></router-outlet>
+<div [@routeAnimation]="getAnimationData(routerOutlet)">
+    <router-outlet #routerOutlet="outlet"></router-outlet>
+</div>

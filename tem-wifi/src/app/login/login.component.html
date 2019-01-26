@@ -1,6 +1,6 @@
 <div id="login-div">
   <mat-card class="example-card">
-    <mat-progress-bar *ngIf="loggingIn" mode="indeterminate" color="primary"></mat-progress-bar>
+    <mat-progress-bar *ngIf="loggingIn" mode="indeterminate" color="accent"></mat-progress-bar>
     <mat-card-header>
       <mat-card-title class="color-db">LOGIN</mat-card-title>
     </mat-card-header>
@@ -34,7 +34,7 @@
           </mat-error>
         </mat-form-field>
         <div class="button-div">
-          <button type="submit" mat-raised-button color="accent" [disabled]="loginForm.invalid">Logar</button>
+          <button type="submit" mat-raised-button color="primary" [disabled]="loginForm.invalid">Logar</button>
           <button mat-raised-button color="primary" (click)="onClickNewUser()">Novo Cadastro</button>
         </div>
         <div *ngIf="error" class="error-div">

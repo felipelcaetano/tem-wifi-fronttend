@@ -50,13 +50,13 @@ export class LoginComponent implements OnInit {
           console.log(resp);
           this.storageService.save('token', resp.token);
 
-          const loterica: StorageTemWiFi = {
+          const temWifi: StorageTemWiFi = {
             id: resp.id,
-            email: resp.email
+            email: value.user
           }
 
-          this.storageService.save('tem-wifi', loterica);
-          this.loginService.emit(resp.email);
+          this.storageService.save('tem-wifi', temWifi);
+          this.loginService.emit(value.user);
           this.loggingIn = false;
           this.router.navigate(['/avaliacoes']);
         },
@@ -81,12 +81,12 @@ export class LoginComponent implements OnInit {
           console.log(resp);
           this.storageService.save('token', resp.token);
 
-          const loterica: StorageTemWiFi = {
+          const temWifi: StorageTemWiFi = {
             id: resp.id,
             email: resp.email
           }
 
-          this.storageService.save('tem-wifi', loterica);
+          this.storageService.save('tem-wifi', temWifi);
           this.loginService.emit(resp.email);
           this.loggingIn = false;
           this.router.navigate(['/avaliacoes']);
