@@ -14,6 +14,10 @@ import { HttpClientModule } from '@angular/common/http';
 import { ListaAvaliacoesModule } from './lista-avaliacoes/lista-avaliacoes.module';
 import { LoginModule } from './login/login.module';
 import { ReactiveFormsModule, FormsModule } from '@angular/forms';
+import { FlexLayoutModule } from '@angular/flex-layout';
+import { AgmCoreModule } from '@agm/core';
+import { MinhasAvaliacoesModule } from './minhas-avaliacoes/minhas-avaliacoes.module';
+
 
 registerLocaleData(localePt);
 
@@ -22,13 +26,19 @@ registerLocaleData(localePt);
     AppComponent
   ],
   imports: [
+    AgmCoreModule.forRoot({
+      apiKey: "AIzaSyDdAo0u0fjp65YlbvEwPHuWuqdOizErAys",
+      libraries: ["places"]
+    }),
     BrowserModule,
     BrowserAnimationsModule,
     CustomMaterialModule,
     HttpClientModule,
     ReactiveFormsModule, FormsModule,
+    FlexLayoutModule,
     ListaAvaliacoesModule,
     LoginModule,
+    MinhasAvaliacoesModule,
     AppRoutingModule
   ],
   providers: [

@@ -1,4 +1,4 @@
-import { ChangeDetectorRef, Component, OnInit, OnDestroy } from '@angular/core';
+import { ChangeDetectorRef, Component, OnInit, OnDestroy, ViewChild, ElementRef, NgZone } from '@angular/core';
 import { MediaMatcher } from '@angular/cdk/layout';
 import { HttpClient } from '@angular/common/http';
 import { awsBaseUrl, httpOptions } from './shared/constants/constants';
@@ -11,7 +11,7 @@ import { FormControl, FormGroupDirective, NgForm, FormBuilder, FormGroup } from 
 import { ErrorStateMatcher } from '@angular/material';
 
 /** Error when invalid control is dirty, touched, or submitted. */
-export class MyErrorStateMatcher implements ErrorStateMatcher {
+export default class MyErrorStateMatcher implements ErrorStateMatcher {
   isErrorState(control: FormControl | null, form: FormGroupDirective | NgForm | null): boolean {
     const isSubmitted = form && form.submitted;
     return !!(control && control.invalid && (control.dirty || control.touched || isSubmitted));
@@ -34,6 +34,14 @@ export class AppComponent implements OnInit, OnDestroy {
 
   private _mobileQueryListener: () => void;
 
+  public latitude: number;
+  public longitude: number;
+  public searchControl: FormControl;
+  public zoom: number;
+
+  @ViewChild("search")
+  public searchElementRef: ElementRef;
+
   constructor(changeDetectorRef: ChangeDetectorRef, media: MediaMatcher, private http: HttpClient, private loginService: LoginService, private router: Router,
     private authService: AuthService, private storageService: StorageService, private fb: FormBuilder) {
 
@@ -47,9 +55,17 @@ export class AppComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit(): void {
+    //set google maps defaults
+    this.zoom = 4;
+    this.latitude = 39.8282;
+    this.longitude = -98.5795;
+
     this.menuSearchForm = this.fb.group({
       searchInput: ['']
     })
+
+    //set current position
+    this.setCurrentPosition();
 
     this.http.post(awsBaseUrl+"/infra/warmup", null, httpOptions)
      .subscribe(
@@ -90,6 +106,16 @@ export class AppComponent implements OnInit, OnDestroy {
   }
 
   get searchInput() { return this.menuSearchForm.get('searchInput'); }
+
+  private setCurrentPosition() {
+    if ("geolocation" in navigator) {
+      navigator.geolocation.getCurrentPosition((position) => {
+        this.latitude = position.coords.latitude;
+        this.longitude = position.coords.longitude;
+        this.zoom = 12;
+      });
+    }
+  }
 
   ngOnDestroy(): void {
     this.mobileQuery.removeListener(this._mobileQueryListener);

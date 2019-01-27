@@ -1,38 +1,43 @@
 <div>
-  <mat-toolbar class="color-lb">
-    <button mat-button class="title">
-      <span id="name" routerLink="/avaliacoes" routerLinkActive="active">Tem Wi-Fi?</span>
-    </button>
-    <form class="form" [formGroup]="menuSearchForm" (ngSubmit)="onSubmit(menuSearchForm)">
-      <mat-form-field class="color-lb">
-        <input matInput 
-          color="primary"
-          formControlName="searchInput"
-          [errorStateMatcher]="matcher"
-          type="search"
-        >
-      </mat-form-field>
-    </form>
-    <button mat-button id="search-icon" (click)="onSubmit(menuSearchForm)">
-      <mat-icon>search</mat-icon>
-    </button>
-    <span *ngIf="email" class="color-lg loggedInSpan">
-      <button mat-button routerLink="/avaliacoes">
-          <mat-icon>thumbs_up_down</mat-icon> Minhas Avaliações
+  <div fxFlex>
+    <mat-toolbar class="color-lb">
+      
+      <button mat-button class="title">
+        <span id="name" routerLink="/avaliacoes" routerLinkActive="active">Tem Wi-Fi?</span>
       </button>
-      <button mat-button (click)="onClickLogout()">
-          <mat-icon>person</mat-icon> {{email}} | Sair <mat-icon>exit_to_app</mat-icon>
+      <form class="form" [formGroup]="menuSearchForm" (ngSubmit)="onSubmit(menuSearchForm)">
+        <mat-form-field class="color-lb">
+          <input matInput #search
+            color="primary"
+            formControlName="searchInput"
+            [errorStateMatcher]="matcher"
+            type="search"
+            autocorrect="off" autocapitalize="off" spellcheck="off"
+          >
+        </mat-form-field>
+      </form>
+      <button mat-button id="search-icon" (click)="onSubmit(menuSearchForm)">
+        <mat-icon>search</mat-icon>
       </button>
-    </span>
-    <span *ngIf="!email" class="color-lg">
-      <button mat-button (click)="onClickLogout()" routerLink="/login" routerLinkActive="active">
-          <mat-icon>person</mat-icon> Login | Novo Cadastro
+      <span *ngIf="email" class="color-lg loggedInSpan">
+        <button mat-button routerLink="/minhas-avaliacoes">
+            <mat-icon>thumbs_up_down</mat-icon> Minhas Avaliações
+        </button>
+        <button mat-button (click)="onClickLogout()">
+            <mat-icon>person</mat-icon> {{email}} | Sair <mat-icon>exit_to_app</mat-icon>
+        </button>
+      </span>
+      <span *ngIf="!email" class="color-lg">
+        <button mat-button (click)="onClickLogout()" routerLink="/login" routerLinkActive="active">
+            <mat-icon>person</mat-icon> Login | Novo Cadastro
+        </button>
+      </span>
+      <button mat-button class="sobre" routerLink="/avaliacoes" routerLinkActive="active">
+        <span class="color-lg">Sobre</span>
       </button>
-    </span>
-    <button mat-button class="sobre" routerLink="/avaliacoes" routerLinkActive="active">
-      <span class="color-lg">Sobre</span>
-    </button>
-  </mat-toolbar>
+      
+    </mat-toolbar>
+  </div>
 </div>
 
 <div [@routeAnimation]="getAnimationData(routerOutlet)">

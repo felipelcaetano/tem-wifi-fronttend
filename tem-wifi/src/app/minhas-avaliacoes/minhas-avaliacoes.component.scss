@@ -1,0 +1,34 @@
+@import "../../styles.scss";
+
+#minhas-avaliacoes-container {
+    max-width: 1000px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: auto;
+    margin-top: 50px;
+    color: $dark-blue;
+
+    mat-accordion {
+        width: 100%;
+
+        mat-expansion-panel-header {
+            padding-left: 0;
+
+            mat-panel-title {
+                flex-basis: 0;
+
+                img {
+                    width: 100%;
+                    height: 100%;
+                }
+            }
+
+            mat-panel-description {
+                flex-basis: 0;
+                justify-content: space-between;
+                align-items: center;
+            }
+        }       
+    }
+}

@@ -1,0 +1,22 @@
+<div fxFlex id="minhas-avaliacoes-container">
+
+
+    <mat-accordion *ngIf="avaliacoes">
+
+        <mat-expansion-panel *ngFor="let avaliacao of avaliacoes">
+            <mat-expansion-panel-header collapsedHeight="100px" expandedHeight="100px">
+                <mat-panel-title>
+                    <img src="../../assets/images/img_place_1.jpg" alt="imagem de local para trabalho">
+                </mat-panel-title>
+                <mat-panel-description>
+                    {{avaliacao.rating}} Avaliações
+                </mat-panel-description>
+            </mat-expansion-panel-header>
+        
+            <ng-template matExpansionPanelContent collapsedHeight="200px" expandedHeight="300px">
+                Some deferred content
+            </ng-template>
+        
+        </mat-expansion-panel>
+    </mat-accordion>
+</div>
