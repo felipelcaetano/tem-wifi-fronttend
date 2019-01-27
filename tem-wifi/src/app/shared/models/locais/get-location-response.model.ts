@@ -1,4 +1,4 @@
-export interface Local {
+export interface GetLocationResponse {
 
     id: string;
     street: string;
@@ -7,6 +7,7 @@ export interface Local {
     postCode: string;
     city: string;
     state: string;
-    country: string | "Brasil";
+    country: string;
     ratingsCount: number;
+    ratings: string[];
 }

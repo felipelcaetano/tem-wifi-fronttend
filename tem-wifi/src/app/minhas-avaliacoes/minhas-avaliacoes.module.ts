@@ -2,6 +2,7 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { MinhasAvaliacoesComponent } from './minhas-avaliacoes.component';
 import { CustomMaterialModule } from '../shared/modules/custom-material-module/custom-material.module';
+import { LoadingModule } from '../shared/modules/loading/loading.module';
 
 @NgModule({
   declarations: [
@@ -9,7 +10,8 @@ import { CustomMaterialModule } from '../shared/modules/custom-material-module/c
   ],
   imports: [
     CommonModule,
-    CustomMaterialModule
+    CustomMaterialModule,
+    LoadingModule
   ],
   exports: [
     MinhasAvaliacoesComponent

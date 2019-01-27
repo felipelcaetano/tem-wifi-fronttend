@@ -3,7 +3,7 @@ import { Local } from "../locais/local.model";
 export interface Avaliacao {
 
     id: string;
-    local: Local;
+    location?: Local;
     userId: string;
     internet: AvaliacaoInternet;
     foods: string;

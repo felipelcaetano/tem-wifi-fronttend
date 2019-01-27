@@ -1,6 +1,5 @@
 <div fxFlex id="minhas-avaliacoes-container">
 
-
     <mat-accordion *ngIf="avaliacoes">
 
         <mat-expansion-panel *ngFor="let avaliacao of avaliacoes">
@@ -9,7 +8,14 @@
                     <img src="../../assets/images/img_place_1.jpg" alt="imagem de local para trabalho">
                 </mat-panel-title>
                 <mat-panel-description>
-                    {{avaliacao.rating}} Avaliações
+                  <span>
+                    {{avaliacao.location?.street}}, {{avaliacao.location?.number}}
+                    <span *ngIf="avaliacao.location?.complement"> - {{avaliacao.location?.complement}}</span>, {{avaliacao.location?.city}}
+                  </span>
+                  <span>{{avaliacao.location?.ratingsCount}} 
+                    <span *ngIf="avaliacao.location?.ratingsCount > 1">Avaliações</span>
+                    <span *ngIf="!avaliacao.location || !avaliacao.location?.ratingsCount || avaliacao.location?.ratingsCount < 2">Avaliação</span>
+                  </span>
                 </mat-panel-description>
             </mat-expansion-panel-header>
         
