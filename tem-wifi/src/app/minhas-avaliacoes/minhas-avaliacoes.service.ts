@@ -18,9 +18,10 @@ export class MinhasAvaliacoesService {
       headers: httpOptions.headers, 
       params: new HttpParams()
     }
-    options.params.append("locatonId", request.locationId);
-    options.params.append("userId", request.userId);
-    
+
+    options.params = options.params.set('locatonId', request.locationId);
+    options.params = options.params.set('userId', request.userId);
+
     return this.http.get<GetRatingsResponse>(`${awsBaseUrl}/rating`, options);
   }
 }
