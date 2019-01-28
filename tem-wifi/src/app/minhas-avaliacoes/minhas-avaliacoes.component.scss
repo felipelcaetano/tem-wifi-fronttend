@@ -12,6 +12,10 @@
     mat-accordion {
         width: 100%;
 
+        mat-expansion-panel{
+            margin: 20px 0;
+        }
+
         mat-expansion-panel-header {
             padding-left: 0;
 
