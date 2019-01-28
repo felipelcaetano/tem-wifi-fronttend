@@ -3,13 +3,13 @@
     <mat-accordion *ngIf="avaliacoes">
 
         <mat-expansion-panel *ngFor="let avaliacao of avaliacoes">
-            <mat-expansion-panel-header collapsedHeight="100px" expandedHeight="100px">
+            <mat-expansion-panel-header collapsedHeight="70px" expandedHeight="100px" >
                 <mat-panel-title>
                     <img src="../../assets/images/img_place_1.jpg" alt="imagem de local para trabalho">
                 </mat-panel-title>
                 <mat-panel-description>
                   <span>
-                    {{avaliacao.location?.street}}, {{avaliacao.location?.number}}
+                    {{avaliacao.location?.name}} - {{avaliacao.location?.street}}, {{avaliacao.location?.number}}
                     <span *ngIf="avaliacao.location?.complement"> - {{avaliacao.location?.complement}}</span>, {{avaliacao.location?.city}}
                   </span>
                   <span>{{avaliacao.location?.ratingsCount}} 
@@ -19,8 +19,180 @@
                 </mat-panel-description>
             </mat-expansion-panel-header>
         
+            
             <ng-template matExpansionPanelContent collapsedHeight="200px" expandedHeight="300px">
-                Some deferred content
+                <div class="mat-expansion-panel-content">
+                    <div class="internet-div">
+                        <h4>INTERNET:</h4>
+                        <mat-radio-group name="hasInternet">
+                            <mat-radio-button value="1" [checked]="avaliacao.internet.hasInternet" 
+                            (change)="avaliacao.internet.hasInternet = true" color="primary">Sim</mat-radio-button>
+                            <mat-radio-button value="0" [checked]="!avaliacao.internet.hasInternet"
+                            (change)="avaliacao.internet.hasInternet = false" color="primary">Não</mat-radio-button>
+                        </mat-radio-group>
+                        <mat-radio-group name="isOpened">
+                            <mat-radio-button value="1" [checked]="avaliacao.internet.isOpened"
+                            (change)="avaliacao.internet.isOpened = true" color="primary">Aberta</mat-radio-button>
+                            <mat-radio-button value="0" [checked]="!avaliacao.internet.isOpened"
+                            (change)="avaliacao.internet.isOpened = false" color="primary">Fechada</mat-radio-button>
+                        </mat-radio-group>
+                        <div class="mat-radio-other">
+                            <mat-form-field>
+                                <input matInput placeholder="Senha" type="text" [(ngModel)]="avaliacao.internet.pass" 
+                                [disabled]="avaliacao.internet.isOpened">
+                            </mat-form-field>
+                        </div>
+                    </div>
+                    <div class="foods-div">
+                        <mat-form-field>
+                            <textarea matInput placeholder="Comidas" [(ngModel)]="avaliacao.foods"></textarea>
+                        </mat-form-field>
+                    </div>
+                    <div class="drinks-div">
+                        <mat-form-field>
+                            <textarea matInput placeholder="Bebidas" [(ngModel)]="avaliacao.drinks"></textarea>
+                        </mat-form-field>
+                    </div>
+
+
+                    <div class="treatment-div">
+                        <h4>ATENDIMENTO:</h4>
+                        <mat-button-toggle-group>
+                            <mat-button-toggle #t1 [checked]="avaliacao.treatment == 1" (change)="avaliacao.treatment = 1">
+                                <mat-icon *ngIf="!t1.checked && !t2.checked && !t3.checked && !t4.checked && !t5.checked">star_border</mat-icon>
+                                <mat-icon *ngIf="t1.checked || t2.checked || t3.checked || t4.checked || t5.checked" color="primary">star</mat-icon>
+                            </mat-button-toggle>
+                            <mat-button-toggle #t2 [checked]="avaliacao.treatment == 2" (change)="avaliacao.treatment = 2">
+                                <mat-icon *ngIf="!t2.checked && !t3.checked && !t4.checked && !t5.checked">star_border</mat-icon>
+                                <mat-icon *ngIf="t2.checked || t3.checked || t4.checked || t5.checked" color="primary">star</mat-icon>
+                            </mat-button-toggle>
+                            <mat-button-toggle #t3 [checked]="avaliacao.treatment == 3" (change)="avaliacao.treatment = 3">
+                                <mat-icon *ngIf="!t3.checked && !t4.checked && !t5.checked">star_border</mat-icon>
+                                <mat-icon *ngIf="t3.checked || t4.checked || t5.checked" color="primary">star</mat-icon>
+                            </mat-button-toggle>
+                            <mat-button-toggle #t4 [checked]="avaliacao.treatment == 4" (change)="avaliacao.treatment = 4">
+                                <mat-icon *ngIf="!t4.checked && !t5.checked">star_border</mat-icon>
+                                <mat-icon *ngIf="t4.checked || t5.checked" color="primary">star</mat-icon>
+                            </mat-button-toggle>
+                            <mat-button-toggle #t5 [checked]="avaliacao.treatment == 5" (change)="avaliacao.treatment = 5">
+                                <mat-icon *ngIf="!t5.checked">star_border</mat-icon>
+                                <mat-icon *ngIf="t5.checked" color="primary">star</mat-icon>
+                            </mat-button-toggle>
+                        </mat-button-toggle-group>
+                    </div>
+
+                    <div class="price-div">
+                        <h4>PREÇO:</h4>
+                        <mat-button-toggle-group>
+                            <mat-button-toggle #p1 [checked]="avaliacao.price == 1" (change)="avaliacao.price = 1">
+                                <mat-icon *ngIf="!p1.checked && !p2.checked && !p3.checked && !p4.checked && !p5.checked">attach_money</mat-icon>
+                                <mat-icon *ngIf="p1.checked || p2.checked || p3.checked || p4.checked || p5.checked" color="primary">attach_money</mat-icon>
+                            </mat-button-toggle>
+                            <mat-button-toggle #p2 [checked]="avaliacao.price == 2" (change)="avaliacao.price = 2">
+                                <mat-icon *ngIf="!p2.checked && !p3.checked && !p4.checked && !p5.checked">attach_money</mat-icon>
+                                <mat-icon *ngIf="p2.checked || p3.checked || p4.checked || p5.checked" color="primary">attach_money</mat-icon>
+                            </mat-button-toggle>
+                            <mat-button-toggle #p3 [checked]="avaliacao.price == 3" (change)="avaliacao.price = 3">
+                                <mat-icon *ngIf="!p3.checked && !p4.checked && !p5.checked">attach_money</mat-icon>
+                                <mat-icon *ngIf="p3.checked || p4.checked || p5.checked" color="primary">attach_money</mat-icon>
+                            </mat-button-toggle>
+                            <mat-button-toggle #p4 [checked]="avaliacao.price == 4" (change)="avaliacao.price = 4">
+                                <mat-icon *ngIf="!p4.checked && !p5.checked">attach_money</mat-icon>
+                                <mat-icon *ngIf="p4.checked || p5.checked" color="primary">attach_money</mat-icon>
+                            </mat-button-toggle>
+                            <mat-button-toggle #p5 [checked]="avaliacao.price == 5" (change)="avaliacao.price = 5">
+                                <mat-icon *ngIf="!p5.checked">attach_money</mat-icon>
+                                <mat-icon *ngIf="p5.checked" color="primary">attach_money</mat-icon>
+                            </mat-button-toggle>
+                        </mat-button-toggle-group>
+                    </div>
+
+
+                    <div class="comfort-div">
+                        <h4>CONFORTO:</h4>
+                        <mat-button-toggle-group>
+                            <mat-button-toggle #c1 [checked]="avaliacao.comfort == 1" (change)="avaliacao.comfort = 1">
+                                <mat-icon *ngIf="!c1.checked && !c2.checked && !c3.checked && !c4.checked && !c5.checked">star_border</mat-icon>
+                                <mat-icon *ngIf="c1.checked || c2.checked || c3.checked || c4.checked || c5.checked" color="primary">star</mat-icon>
+                            </mat-button-toggle>
+                            <mat-button-toggle #c2 [checked]="avaliacao.comfort == 2" (change)="avaliacao.comfort = 2">
+                                <mat-icon *ngIf="!c2.checked && !c3.checked && !c4.checked && !c5.checked">star_border</mat-icon>
+                                <mat-icon *ngIf="c2.checked || c3.checked || c4.checked || c5.checked" color="primary">star</mat-icon>
+                            </mat-button-toggle>
+                            <mat-button-toggle #c3 [checked]="avaliacao.comfort == 3" (change)="avaliacao.comfort = 3">
+                                <mat-icon *ngIf="!c3.checked && !c4.checked && !c5.checked">star_border</mat-icon>
+                                <mat-icon *ngIf="c3.checked || c4.checked || c5.checked" color="primary">star</mat-icon>
+                            </mat-button-toggle>
+                            <mat-button-toggle #c4 [checked]="avaliacao.comfort == 4" (change)="avaliacao.comfort = 4">
+                                <mat-icon *ngIf="!c4.checked && !c5.checked">star_border</mat-icon>
+                                <mat-icon *ngIf="c4.checked || c5.checked" color="primary">star</mat-icon>
+                            </mat-button-toggle>
+                            <mat-button-toggle #c5 [checked]="avaliacao.comfort == 5" (change)="avaliacao.comfort = 5">
+                                <mat-icon *ngIf="!c5.checked">star_border</mat-icon>
+                                <mat-icon *ngIf="c5.checked" color="primary">star</mat-icon>
+                            </mat-button-toggle>
+                        </mat-button-toggle-group>
+                    </div>
+
+
+                    <div class="noise-div">
+                        <h4>RUÍDO:</h4>
+                        <mat-button-toggle-group>
+                            <mat-button-toggle #r1 [checked]="avaliacao.noise == 1" (change)="avaliacao.noise = 1">
+                                <mat-icon *ngIf="!r1.checked && !r2.checked && !r3.checked && !r4.checked && !r5.checked">star_border</mat-icon>
+                                <mat-icon *ngIf="r1.checked || r2.checked || r3.checked || r4.checked || r5.checked" color="primary">star</mat-icon>
+                            </mat-button-toggle>
+                            <mat-button-toggle #r2 [checked]="avaliacao.noise == 2" (change)="avaliacao.noise = 2">
+                                <mat-icon *ngIf="!r2.checked && !r3.checked && !r4.checked && !r5.checked">star_border</mat-icon>
+                                <mat-icon *ngIf="r2.checked || r3.checked || r4.checked || r5.checked" color="primary">star</mat-icon>
+                            </mat-button-toggle>
+                            <mat-button-toggle #r3 [checked]="avaliacao.noise == 3" (change)="avaliacao.noise = 3">
+                                <mat-icon *ngIf="!r3.checked && !r4.checked && !r5.checked">star_border</mat-icon>
+                                <mat-icon *ngIf="r3.checked || r4.checked || r5.checked" color="primary">star</mat-icon>
+                            </mat-button-toggle>
+                            <mat-button-toggle #r4 [checked]="avaliacao.noise == 4" (change)="avaliacao.noise = 4">
+                                <mat-icon *ngIf="!r4.checked && !r5.checked">star_border</mat-icon>
+                                <mat-icon *ngIf="r4.checked || r5.checked" color="primary">star</mat-icon>
+                            </mat-button-toggle>
+                            <mat-button-toggle #r5 [checked]="avaliacao.noise == 5" (change)="avaliacao.noise = 5">
+                                <mat-icon *ngIf="!r5.checked">star_border</mat-icon>
+                                <mat-icon *ngIf="r5.checked" color="primary">star</mat-icon>
+                            </mat-button-toggle>
+                        </mat-button-toggle-group>
+                    </div>
+
+                    <div class="general-rating-div">
+                        <h4>AVALIAÇÃO GERAL:</h4>
+                        <mat-button-toggle-group>
+                            <mat-button-toggle #g1 [checked]="avaliacao.generalRating == 1" (change)="avaliacao.generalRating = 1">
+                                <mat-icon *ngIf="!g1.checked && !g2.checked && !g3.checked && !g4.checked && !g5.checked">star_border</mat-icon>
+                                <mat-icon *ngIf="g1.checked || g2.checked || g3.checked || g4.checked || g5.checked" color="primary">star</mat-icon>
+                            </mat-button-toggle>
+                            <mat-button-toggle #g2 [checked]="avaliacao.generalRating == 2" (change)="avaliacao.generalRating = 2">
+                                <mat-icon *ngIf="!g2.checked && !g3.checked && !g4.checked && !g5.checked">star_border</mat-icon>
+                                <mat-icon *ngIf="g2.checked || g3.checked || g4.checked || g5.checked" color="primary">star</mat-icon>
+                            </mat-button-toggle>
+                            <mat-button-toggle #g3 [checked]="avaliacao.generalRating == 3" (change)="avaliacao.generalRating = 3">
+                                <mat-icon *ngIf="!g3.checked && !g4.checked && !g5.checked">star_border</mat-icon>
+                                <mat-icon *ngIf="g3.checked || g4.checked || g5.checked" color="primary">star</mat-icon>
+                            </mat-button-toggle>
+                            <mat-button-toggle #g4 [checked]="avaliacao.generalRating == 4" (change)="avaliacao.generalRating = 4">
+                                <mat-icon *ngIf="!g4.checked && !g5.checked">star_border</mat-icon>
+                                <mat-icon *ngIf="g4.checked || g5.checked" color="primary">star</mat-icon>
+                            </mat-button-toggle>
+                            <mat-button-toggle #g5 [checked]="avaliacao.generalRating == 5" (change)="avaliacao.generalRating = 5">
+                                <mat-icon *ngIf="!g5.checked">star_border</mat-icon>
+                                <mat-icon *ngIf="g5.checked" color="primary">star</mat-icon>
+                            </mat-button-toggle>
+                        </mat-button-toggle-group>
+                    </div>
+
+                    <div class="button-div">
+                        <button mat-raised-button color="primary" (click)="onClickUpdateRating(avaliacao)">Atualizar</button>
+                    </div>
+
+
+                </div>
             </ng-template>
         
         </mat-expansion-panel>

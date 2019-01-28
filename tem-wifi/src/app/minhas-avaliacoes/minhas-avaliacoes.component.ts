@@ -1,9 +1,10 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ChangeDetectorRef } from '@angular/core';
 import { Avaliacao, AvaliacaoInternet } from '../shared/models/avaliacoes/avaliacao.model';
 import { MinhasAvaliacoesService } from './minhas-avaliacoes.service';
 import { StorageService } from '../storage/storage.service';
 import { LocaisService } from '../locais/locais.service';
 import { Local } from '../shared/models/locais/local.model';
+import { MatSnackBar } from '@angular/material';
 
 @Component({
   selector: 'app-minhas-avaliacoes',
@@ -14,7 +15,8 @@ export class MinhasAvaliacoesComponent implements OnInit {
 
   avaliacoes: Avaliacao[] = [];
 
-  constructor(private service: MinhasAvaliacoesService, private storageService: StorageService, private locaisService: LocaisService) { }
+  constructor(private service: MinhasAvaliacoesService, private storageService: StorageService, private locaisService: LocaisService, 
+    private cdRef:ChangeDetectorRef, private snackBar: MatSnackBar) { }
 
   ngOnInit() {
     this.storageService.get("tem-wifi")
@@ -33,6 +35,7 @@ export class MinhasAvaliacoesComponent implements OnInit {
                     console.log('Return get location: ', resp);
 
                     let local: Local = {
+                      name: resp.name,
                       city: resp.city,
                       complement: resp.complement,
                       country: resp.country,
@@ -45,8 +48,8 @@ export class MinhasAvaliacoesComponent implements OnInit {
                     }
 
                     let internet: AvaliacaoInternet = {
-                      hasInternet: rating.internet.hasInternet,
-                      isOpened: rating.internet.isOpened,
+                      hasInternet: rating.internet.hasInternet ? rating.internet.hasInternet : false,
+                      isOpened: rating.internet.isOpened ? rating.internet.isOpened : false,
                       pass: rating.internet.pass,
                       speed: rating.internet.speed
                     }
@@ -70,6 +73,25 @@ export class MinhasAvaliacoesComponent implements OnInit {
               })
           })
       })
+  }
+
+  onClickUpdateRating(avaliacao: Avaliacao): void {
+    console.log(avaliacao)
+    this.service.updateRating(avaliacao)
+      .subscribe(resp => {
+        this.openSnackBar();
+      },
+      error => console.log('Erro update rating> ', error))
+  }
+
+  openSnackBar() {
+      this.snackBar.open('Avaliação atualizada', 'X', {
+        duration: 2000,
+      });
+  }
+
+  ngAfterViewChecked() {
+    this.cdRef.detectChanges();
   }
 
 }

@@ -1,6 +1,7 @@
 export interface Local {
 
     id: string;
+    name: string;
     street: string;
     number: string;
     complement?: string;

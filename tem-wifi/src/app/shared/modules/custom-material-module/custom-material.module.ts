@@ -1,5 +1,5 @@
 import { NgModule } from '@angular/core';
-import { MatCheckboxModule, MatListModule, MatSidenavModule, MatToolbarModule, MatIconModule, MatButtonModule, MatTableModule, MatPaginatorModule, MatSortModule, MatFormFieldModule, MatInputModule, MatDividerModule, MatChipsModule, MatButtonToggleModule, MatTooltipModule, MatDialogModule, MatProgressBarModule, MatProgressSpinnerModule, MatCardModule, MatGridListModule, MatMenuModule, MatDatepickerModule, MatExpansionModule } from '@angular/material';
+import { MatCheckboxModule, MatListModule, MatSidenavModule, MatToolbarModule, MatIconModule, MatButtonModule, MatTableModule, MatPaginatorModule, MatSortModule, MatFormFieldModule, MatInputModule, MatDividerModule, MatChipsModule, MatButtonToggleModule, MatTooltipModule, MatDialogModule, MatProgressBarModule, MatProgressSpinnerModule, MatCardModule, MatGridListModule, MatMenuModule, MatDatepickerModule, MatExpansionModule, MatRadioModule, MatSnackBarModule } from '@angular/material';
 import { DragDropModule } from '@angular/cdk/drag-drop';
 
 const MetrialModules = [
@@ -26,7 +26,9 @@ const MetrialModules = [
   MatGridListModule,
   MatMenuModule,
   MatDatepickerModule,
-  MatExpansionModule
+  MatExpansionModule,
+  MatRadioModule,
+  MatSnackBarModule
 ]
 
 @NgModule({

@@ -7,6 +7,7 @@
     align-items: center;
     margin: auto;
     margin-top: 50px;
+    margin-bottom: 20px;
 
     mat-accordion {
         width: 100%;
@@ -29,6 +30,54 @@
                 align-items: center;
                 color: $dark-blue;
             }
-        }       
+        }
+        
+        .mat-expansion-panel-content {
+            color: $dark-blue;
+            margin-left: 32% !important;
+            display: flex;
+            align-items: flex-start;
+            justify-content: space-between;
+            flex-direction: row;
+            flex-wrap: wrap;
+
+            h4 {
+                margin: 0 0 5px 7px;
+            }
+
+            .internet-div {
+                width: 33%;
+
+                mat-radio-group {
+                    margin: 5px;
+                    font-size: .9rem;
+                    width: 100%;
+
+                    mat-radio-button {
+                        margin: 5px;
+                    }
+                }
+
+                .mat-radio-other {
+                    margin-left: 5%;
+                    display: flex;
+                }
+            }
+
+            .foods-div, .drinks-div {
+                width: 33%;
+            }
+
+            .treatment-div, .price-div, .comfort-div, .noise-div, .general-rating-div, .button-div {
+                width: 50%;
+                margin-bottom: 10px;
+            }
+
+            .button-div {
+                margin: 40px 0 0 0;
+                display: flex;
+                flex-direction: column;
+            }
+        }
     }
 }

@@ -17,6 +17,7 @@ import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { AgmCoreModule } from '@agm/core';
 import { MinhasAvaliacoesModule } from './minhas-avaliacoes/minhas-avaliacoes.module';
+import { SobreModule } from './sobre/sobre.module';
 
 
 registerLocaleData(localePt);
@@ -39,6 +40,7 @@ registerLocaleData(localePt);
     ListaAvaliacoesModule,
     LoginModule,
     MinhasAvaliacoesModule,
+    SobreModule,
     AppRoutingModule
   ],
   providers: [

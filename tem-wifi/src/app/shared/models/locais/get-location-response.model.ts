@@ -1,6 +1,7 @@
 export interface GetLocationResponse {
 
     id: string;
+    name: string;
     street: string;
     number: string;
     complement?: string;
