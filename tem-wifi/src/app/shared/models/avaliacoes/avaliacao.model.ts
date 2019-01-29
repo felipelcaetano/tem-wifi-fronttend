@@ -2,9 +2,9 @@ import { Local } from "../locais/local.model";
 
 export interface Avaliacao {
 
-    id: string;
+    id?: string;
     location?: Local;
-    userId: string;
+    userId?: string;
     internet: AvaliacaoInternet;
     foods: string;
     drinks: string;

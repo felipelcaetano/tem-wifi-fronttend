@@ -15,7 +15,7 @@ export class CustomHttpInterceptor implements HttpInterceptor {
     console.log('Intercepting');
     console.log('token: ', this.authService.token)
 
-    if(this.authService.token && !req.headers.has('NoAuth')) {
+    if(this.authService.token && !req.headers.has('NoAuth') && req.url.includes('amazonaws')) {
       // clone request 
       const secureReq = req.clone({
         headers: req.headers.set('Authorization', this.authService.token)

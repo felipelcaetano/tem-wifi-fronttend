@@ -18,17 +18,20 @@ import { FlexLayoutModule } from '@angular/flex-layout';
 import { AgmCoreModule } from '@agm/core';
 import { MinhasAvaliacoesModule } from './minhas-avaliacoes/minhas-avaliacoes.module';
 import { SobreModule } from './sobre/sobre.module';
+import { environment } from 'src/environments/environment';
+import { NovaAvaliacaoModule } from './nova-avaliacao/nova-avaliacao.module';
+import { GooglePlacesDirective } from './directives/google-places.directive';
 
 
 registerLocaleData(localePt);
 
 @NgModule({
   declarations: [
-    AppComponent
+    AppComponent,
   ],
   imports: [
     AgmCoreModule.forRoot({
-      apiKey: "AIzaSyDdAo0u0fjp65YlbvEwPHuWuqdOizErAys",
+      apiKey: environment.googleMapsPlaceApiKey,
       libraries: ["places"]
     }),
     BrowserModule,
@@ -40,8 +43,11 @@ registerLocaleData(localePt);
     ListaAvaliacoesModule,
     LoginModule,
     MinhasAvaliacoesModule,
+    NovaAvaliacaoModule,
     SobreModule,
     AppRoutingModule
+  ],
+  exports: [
   ],
   providers: [
     {

@@ -1,13 +1,13 @@
 export interface Local {
 
-    id: string;
-    name: string;
+    id?: string;
+    name?: string;
     street: string;
-    number: string;
+    number?: string;
     complement?: string;
     postCode: string;
     city: string;
     state: string;
     country: string | "Brasil";
-    ratingsCount: number;
+    ratingsCount?: number;
 }

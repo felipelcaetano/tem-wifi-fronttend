@@ -1,4 +1,5 @@
 import { HttpHeaders } from "@angular/common/http";
+import { environment } from "src/environments/environment";
 
 export const httpOptions = {
     headers: new HttpHeaders({
@@ -7,4 +8,4 @@ export const httpOptions = {
     })
 }
 
-export const awsBaseUrl: string = "https://33arogiloa.execute-api.us-east-1.amazonaws.com/dev";
+export const awsBaseUrl: string = environment.awsBaseUrl;

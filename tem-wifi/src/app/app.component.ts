@@ -28,6 +28,8 @@ export class AppComponent implements OnInit, OnDestroy {
   title = 'tem-wifi';
   mobileQuery: MediaQueryList;
 
+  matcher = new MyErrorStateMatcher();
+
   public email: string = '';
 
   menuSearchForm: FormGroup;
@@ -115,6 +117,10 @@ export class AppComponent implements OnInit, OnDestroy {
         this.zoom = 12;
       });
     }
+  }
+
+  onSubmit(event: any): void {
+
   }
 
   ngOnDestroy(): void {

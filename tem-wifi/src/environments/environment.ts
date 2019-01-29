@@ -3,7 +3,9 @@
 // The list of file replacements can be found in `angular.json`.
 
 export const environment = {
-  production: false
+  production: false,
+  awsBaseUrl: 'https://33arogiloa.execute-api.us-east-1.amazonaws.com/dev',
+  googleMapsPlaceApiKey: 'AIzaSyAQFpWEfgyG43sgg5EEVBswWC7GbLMVB_8'
 };
 
 /*

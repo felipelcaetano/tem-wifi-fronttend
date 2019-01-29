@@ -1,6 +1,25 @@
 @import "../../styles.scss";
 
-p {
-    margin-top: 20px;
-    text-align: center;
+.container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-wrap: wrap;
+    max-width: 1000px;
+    margin: auto auto;
+
+    .h1-div {
+        width: 100%;
+        flex-shrink: 0;  
+    }
+
+    .p-div {
+        width: 100%;
+        flex-shrink: 0;
+
+        p {
+            text-align: center;
+        }
+    }
 }
+

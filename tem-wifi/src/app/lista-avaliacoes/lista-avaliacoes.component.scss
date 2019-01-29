@@ -1,0 +1,27 @@
+@import "../../styles.scss";
+
+.container {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    max-width: 1000px;
+    margin: auto auto;
+
+    .h1-div {
+        flex-shrink: 0;
+        width: 100%;
+    }
+
+    .new-rating-div {
+        flex-shrink: 0;
+        width: 100%;
+        margin: 40px 0 0 0;
+        display: flex;
+        flex-direction: column;
+
+        button {
+            color: $dark-blue;
+            background: $light-green;
+        }
+    }
+}
