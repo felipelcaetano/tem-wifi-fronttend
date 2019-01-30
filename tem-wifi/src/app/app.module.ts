@@ -20,7 +20,23 @@ import { MinhasAvaliacoesModule } from './minhas-avaliacoes/minhas-avaliacoes.mo
 import { SobreModule } from './sobre/sobre.module';
 import { environment } from 'src/environments/environment';
 import { NovaAvaliacaoModule } from './nova-avaliacao/nova-avaliacao.module';
-import { GooglePlacesDirective } from './directives/google-places.directive';
+import { SocialLoginModule, AuthServiceConfig } from "angularx-social-login";
+import { GoogleLoginProvider, FacebookLoginProvider} from "angularx-social-login";
+
+let config = new AuthServiceConfig([
+  {
+    id: GoogleLoginProvider.PROVIDER_ID,
+    provider: new GoogleLoginProvider("405304603213-slvn5npjsgpoj24baq24ns4iumpl3vuq.apps.googleusercontent.com")
+  },
+  {
+    id: FacebookLoginProvider.PROVIDER_ID,
+    provider: new FacebookLoginProvider("606199033135350")
+  }
+]);
+ 
+export function provideConfig() {
+  return config;
+}
 
 
 registerLocaleData(localePt);
@@ -45,6 +61,7 @@ registerLocaleData(localePt);
     MinhasAvaliacoesModule,
     NovaAvaliacaoModule,
     SobreModule,
+    SocialLoginModule,
     AppRoutingModule
   ],
   exports: [
@@ -57,6 +74,10 @@ registerLocaleData(localePt);
     AuthGuardService,
     AuthService,
     httpInterceptorProviders,
+    {
+      provide: AuthServiceConfig,
+      useFactory: provideConfig
+    }
   ],
   bootstrap: [AppComponent]
 })

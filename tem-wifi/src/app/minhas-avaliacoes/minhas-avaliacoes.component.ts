@@ -14,11 +14,13 @@ import { MatSnackBar } from '@angular/material';
 export class MinhasAvaliacoesComponent implements OnInit {
 
   avaliacoes: Avaliacao[] = [];
+  loading: boolean = false;
 
   constructor(private service: MinhasAvaliacoesService, private storageService: StorageService, private locaisService: LocaisService, 
     private cdRef:ChangeDetectorRef, private snackBar: MatSnackBar) { }
 
   ngOnInit() {
+    this.loading = true;
     this.storageService.get("tem-wifi")
       .subscribe(resp => {
 
@@ -64,28 +66,50 @@ export class MinhasAvaliacoesComponent implements OnInit {
                       price: rating.price,
                       comfort: rating.comfort,
                       noise: rating.noise,
-                      generalRating: rating.generalRating
+                      generalRating: rating.generalRating,
+                      urlImagem: '../../assets/images/img_place_'+ (Math.floor(Math.random() * 3) + 1) + '.jpg'
                     }
 
                     this.avaliacoes.push(avaliacao);
                   },
-                  error => console.log('Erro return location: ', error))
+                  error => {
+                    console.log('Erro get location: ', error);
+                    this.openSnackBar('Erro inesperado');
+                    this.loading = false;
+                  })
               })
+              this.loading = false;
+          },
+          error => {
+            console.log('Erro list ratings: ', error);
+            this.openSnackBar('Erro inesperado');
+            this.loading = false;
           })
+      },
+      error => {
+        console.log('Erro storage: ', error);
+        this.openSnackBar('Erro inesperado');
+        this.loading = false;
       })
   }
 
   onClickUpdateRating(avaliacao: Avaliacao): void {
     console.log(avaliacao)
+    this.loading = true;
     this.service.updateRating(avaliacao)
       .subscribe(resp => {
-        this.openSnackBar();
+        this.openSnackBar('Avaliação atualizada');
+        this.loading = false;
       },
-      error => console.log('Erro update rating> ', error))
+      error => {
+        this.loading = false;
+        this.openSnackBar('Erro inesperado');
+        console.log('Erro update rating ', error)
+      })
   }
 
-  openSnackBar() {
-      this.snackBar.open('Avaliação atualizada', 'X', {
+  openSnackBar(message: string) {
+      this.snackBar.open(message, 'X', {
         duration: 2000,
       });
   }

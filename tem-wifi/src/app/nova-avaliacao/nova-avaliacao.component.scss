@@ -125,6 +125,18 @@
             .mat-radio-other {
                 margin-left: 5%;
                 display: inline-flex;
+
+                mat-form-field {
+                    margin: 0 10px;
+                }
+
+                .w-20 {
+                    width: 20%;
+                }
+
+                #mb {
+                    align-self: center;
+                }
             }
         }
 

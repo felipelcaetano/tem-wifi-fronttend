@@ -1,5 +1,6 @@
 export interface PostLoginRequest {
     
     user: string,
-    pass?: string
+    pass?: string,
+    provider?: string
 }

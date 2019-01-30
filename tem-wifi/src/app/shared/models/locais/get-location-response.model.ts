@@ -1,4 +1,6 @@
-export interface GetLocationResponse {
+import { DefaultResponse } from "../response/default-response.model";
+
+export interface GetLocationResponse extends DefaultResponse {
 
     id: string;
     name: string;

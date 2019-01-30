@@ -4,12 +4,16 @@
         <h1 class="color-lb">Minhas Avaliações</h1>
     </div>
 
+    <div class="no-rat-div" *ngIf='!avaliacoes'>
+        <span>Nenhuma avaliação registrada</span>
+    </div>
+
     <mat-accordion *ngIf="avaliacoes">
 
         <mat-expansion-panel *ngFor="let avaliacao of avaliacoes">
             <mat-expansion-panel-header collapsedHeight="70px" expandedHeight="100px" >
                 <mat-panel-title>
-                    <img src="../../assets/images/img_place_1.jpg" alt="imagem de local para trabalho">
+                    <img [src]="avaliacao.urlImagem" alt="imagem de local para trabalho">
                 </mat-panel-title>
                 <mat-panel-description>
                   <span>
@@ -45,6 +49,10 @@
                                 <input matInput placeholder="Senha" type="text" [(ngModel)]="avaliacao.internet.pass" 
                                 [disabled]="avaliacao.internet.isOpened">
                             </mat-form-field>
+                            <mat-form-field class="w-12">
+                                <input matInput placeholder="Velocidade" type="number" [(ngModel)]="avaliacao.internet.speed" maxlength="5"> 
+                            </mat-form-field>
+                            <span id="mb">MB</span>
                         </div>
                     </div>
                     <div class="foods-div">
@@ -201,4 +209,6 @@
         
         </mat-expansion-panel>
     </mat-accordion>
+
+    <app-loading *ngIf="loading"></app-loading>
 </div>

@@ -5,7 +5,7 @@
       <mat-card-title class="color-db">LOGIN</mat-card-title>
     </mat-card-header>
     <mat-card-content>
-      <form class="form" *ngIf="!isNewUser" [formGroup]="loginForm" (ngSubmit)="onSubmitLogin(loginForm)">
+      <form class="form" *ngIf="!isNewUser" [formGroup]="loginForm">
         <mat-form-field>
           <input matInput 
             placeholder="Email" 
@@ -34,8 +34,18 @@
           </mat-error>
         </mat-form-field>
         <div class="button-div">
-          <button type="submit" mat-raised-button color="primary" [disabled]="loginForm.invalid">Logar</button>
+          <button mat-raised-button color="primary" [disabled]="loginForm.invalid" (click)="onSubmitLogin(loginForm, 'temwifi')">Logar</button>
+
           <button mat-raised-button color="primary" (click)="onClickNewUser()">Novo Cadastro</button>
+
+          <button mat-raised-button id="face-button" (click)="signInWithFB()">
+            <img src="../../assets/icons/facebook.svg" alt="ícone do facebook">Entre com o Facebook
+          </button>
+
+          <button mat-raised-button id="google-button" (click)="signInWithGoogle()">
+            <img src="../../assets/icons/google.svg" alt="ícone do google">Entre com o Google
+          </button>
+
         </div>
         <div *ngIf="error" class="error-div">
           <p>{{error}}</p>

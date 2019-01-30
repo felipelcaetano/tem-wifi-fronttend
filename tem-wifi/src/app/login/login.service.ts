@@ -8,27 +8,35 @@ import { StorageService } from '../storage/storage.service';
 import { AuthService } from '../auth/auth.service';
 import { PostNewUserRequest } from '../shared/models/login/post-new-user-request.model';
 import { PostNewUserResponse } from '../shared/models/login/post-new-user-response.model';
+import { AuthService as SocialAuthService, SocialUser } from "angularx-social-login";
 
 @Injectable({
   providedIn: 'root'
 })
 export class LoginService {
 
-  constructor(private http: HttpClient, private storageService: StorageService, private authService: AuthService) { }
+  constructor(private http: HttpClient, private storageService: StorageService, private authService: AuthService,
+    private socialAuthService: SocialAuthService) {
+  }
 
   public login$: Observable<string> = new Observable((observer) => {
-    this.emit = nome => observer.next(nome);
+    this.emit = value => observer.next(value);
   });
 
   login(request: PostLoginRequest): Observable<PostLoginResponse> {
 
-    return this.http.post<PostLoginResponse>(`${awsBaseUrl}/auth/login`, request, httpOptions);
+    return this.http.post<PostLoginResponse>(`${awsBaseUrl}/auth/login`, request, httpOptions);      
+  }
+
+  signOut(): void {
+    this.socialAuthService.signOut();
   }
 
   logout(): void {
     this.emit('');
     this.storageService.clear();
     this.authService.clearToken();
+    this.signOut();
   }
 
   emit(email: string) {

@@ -4,7 +4,7 @@ import { environment } from "src/environments/environment";
 export const httpOptions = {
     headers: new HttpHeaders({
         'Content-Type': 'application/json',
-        'X-Api-Key': 'DFGQF0lJ8631BVTGkdckU9y4k0lbLaLg1SDfSJsG'
+        'X-Api-Key': environment.awsApiKey
     })
 }
 

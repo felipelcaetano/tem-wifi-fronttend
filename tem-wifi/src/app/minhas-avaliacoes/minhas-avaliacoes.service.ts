@@ -6,6 +6,7 @@ import { Observable } from 'rxjs';
 import { httpOptions, awsBaseUrl } from '../shared/constants/constants';
 import { Avaliacao } from '../shared/models/avaliacoes/avaliacao.model';
 import { PutInternetRatingRequest, PutRatingRequest } from '../shared/models/avaliacoes/put-rating.request.model';
+import { PutRatingResponse } from '../shared/models/avaliacoes/put-rating-response.model';
 
 @Injectable({
   providedIn: 'root'
@@ -27,7 +28,7 @@ export class MinhasAvaliacoesService {
     return this.http.get<GetRatingsResponse>(`${awsBaseUrl}/rating`, options);
   }
 
-  updateRating(request: Avaliacao): Observable<any> {
+  updateRating(request: Avaliacao): Observable<PutRatingResponse> {
 
     let internetRequest: PutInternetRatingRequest = {
       hasInternet: request.internet.hasInternet,
@@ -48,6 +49,6 @@ export class MinhasAvaliacoesService {
       treatment: request.treatment
     }
 
-    return this.http.put<PutRatingRequest>(`${awsBaseUrl}/rating/${request.id}`, ratingRequest, httpOptions);
+    return this.http.put<PutRatingResponse>(`${awsBaseUrl}/rating/${request.id}`, ratingRequest, httpOptions);
   }
 }

@@ -4,6 +4,10 @@ import { ErrorStateMatcher, MatSnackBar } from '@angular/material';
 import { Local } from '../shared/models/locais/local.model';
 import { NgxViacepService, Endereco, ErroCep, ErrorValues } from '@brunoc/ngx-viacep';
 import { Avaliacao } from '../shared/models/avaliacoes/avaliacao.model';
+import { NovaAvaliacaoService } from './nova-avaliacao.service';
+import { environment } from 'src/environments/environment.prod';
+import { StorageService } from '../storage/storage.service';
+import { Router } from '@angular/router';
 
 /** Error when invalid control is dirty, touched, or submitted. */
 export class MyErrorStateMatcher implements ErrorStateMatcher {
@@ -25,6 +29,9 @@ export class NovaAvaliacaoComponent implements OnInit, AfterViewInit {
 
   matcher = new MyErrorStateMatcher();
 
+  userId: string;
+  loading: boolean = false;
+
   local: Local;
   avaliacao: Avaliacao = {
     comfort: 3, 
@@ -45,7 +52,8 @@ export class NovaAvaliacaoComponent implements OnInit, AfterViewInit {
 
   @ViewChildren('inputField') iputFields: QueryList<ElementRef>;
 
-  constructor(private fb: FormBuilder, private viacep: NgxViacepService, private snackBar: MatSnackBar, private cdRef:ChangeDetectorRef) { }
+  constructor(private fb: FormBuilder, private viacep: NgxViacepService, private snackBar: MatSnackBar, private cdRef:ChangeDetectorRef,
+    private novaAvaliacaoService: NovaAvaliacaoService, private storageService: StorageService, private router: Router) { }
 
   onSelectGooglePlace(local: Local): void {
     console.log(local);
@@ -79,11 +87,13 @@ export class NovaAvaliacaoComponent implements OnInit, AfterViewInit {
     if(event.target.value.length == 8 && this.cepTemp != event.target.value) {
       this.cepTemp = event.target.value;
 
+      this.loading = true;
       this.viacep.buscarPorCep(event.target.value)
         .then( (endereco: Endereco) => {
           console.log('Ednereco via cep: ', endereco);
           this.cep.setErrors(null);
           this.returViaCep(endereco);
+          this.loading = false;
         })
         .catch( (error: ErroCep) => {
           console.log(error.message);
@@ -98,6 +108,7 @@ export class NovaAvaliacaoComponent implements OnInit, AfterViewInit {
               this.cep.setErrors({'invalid': true});
               break;
           }
+          this.loading = false;
         })
     }
   }
@@ -111,12 +122,13 @@ export class NovaAvaliacaoComponent implements OnInit, AfterViewInit {
   get nome() { return this.newLocationForm.get('nome'); }
   get logradouro() { return this.newLocationForm.get('logradouro'); }
   get numero() { return this.newLocationForm.get('numero'); }
-  get nocomplementome() { return this.newLocationForm.get('complemento'); }
+  get complemento() { return this.newLocationForm.get('complemento'); }
   get cep() { return this.newLocationForm.get('cep'); }
   get cidade() { return this.newLocationForm.get('cidade'); }
   get estado() { return this.newLocationForm.get('estado'); }
 
   get senhaInternet() { return this.newRatingForm.get('senhaInternet'); }
+  get velocidade() { return this.newRatingForm.get('velocidade'); }
   get comidas() { return this.newRatingForm.get('comidas'); }
   get bebidas() { return this.newRatingForm.get('bebidas'); }
 
@@ -133,13 +145,64 @@ export class NovaAvaliacaoComponent implements OnInit, AfterViewInit {
 
     this.newRatingForm = this.fb.group({
       senhaInternet: [{value: '', disabled: true}],
+      velocidade: [''],
       comidas: [''],
       bebidas: [''],
     })
   }
 
   onSubmitRating(): void {
+    this.loading = true;
+    this.storageService.get('tem-wifi')
+      .subscribe(resp => {
+        this.userId = resp.id;
 
+        this.local.complement = this.complemento.value;
+        this.local.name = this.nome.value;
+        this.local.number = this.numero.value;
+        this.local.postCode = this.cep.value;
+
+        if(!environment.production) {
+          console.log('New location request: ', this.local);
+        }
+
+        this.novaAvaliacaoService.createLocation(this.local)
+          .subscribe(resp => {
+
+            this.local.id = resp.links[0].rel;
+            this.avaliacao.location = this.local;
+            this.avaliacao.drinks = this.bebidas.value;
+            this.avaliacao.foods = this.comidas.value;
+            this.avaliacao.userId = this.userId;
+            this.avaliacao.internet.pass = this.senhaInternet.value;
+            this.avaliacao.internet.speed = this.velocidade.value;
+
+            if(!environment.production) {
+              console.log('New rating request: ', this.local);
+            }
+
+            this.novaAvaliacaoService.createRating(this.avaliacao)
+              .subscribe(resp => {
+
+                this.router.navigate(['/minhas-avaliacoes']);
+              },
+              error => {
+                console.log('Erro rating: ', error);
+                this.openSnackBar('Erro inesperado', 'Fechar')
+                this.loading = false;
+              })
+          },
+          error => {
+            console.log('Erro location: ', error);
+            this.openSnackBar('Erro inesperado', 'Fechar')
+            this.loading = false;
+          })
+      },
+      error => {
+        console.log('Erro storage: ', error);
+        this.openSnackBar('Erro inesperado', 'Fechar')
+        this.loading = false;
+      })
   }
 
   onSubmitLocation(): void {

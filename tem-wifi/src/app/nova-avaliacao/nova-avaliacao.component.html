@@ -11,10 +11,10 @@
       type="text"
       color="accent"
       class="google-place-input"
-      placeholder="Digite o endereço do local...">
+      placeholder="Digite o endereço do local ou o CEP abaixo...">
   </div>
 
-  <mat-vertical-stepper linear="false" #stepper>
+  <mat-vertical-stepper linear="true" #stepper>
     <mat-step [stepControl]="newLocationForm">
 
       <div class="form-div">
@@ -144,6 +144,14 @@
                         formControlName="senhaInternet"
                         [errorStateMatcher]="matcher">
                     </mat-form-field>
+                    <mat-form-field class="w-20">
+                        <input matInput 
+                        placeholder="Velocidade" 
+                        type="number"
+                        formControlName="velocidade"
+                        [errorStateMatcher]="matcher"> 
+                    </mat-form-field>
+                    <span id="mb">MB</span>
                 </div>
 
             </div>
@@ -158,8 +166,8 @@
             </div>
             <div class="drinks-div">
                 <mat-form-field>
-                    <textarea matInput placeholder="Bebidas"
-                    placeholder="Comidas" 
+                    <textarea matInput
+                    placeholder="Bebidas" 
                     [errorStateMatcher]="matcher"
                     formControlName="bebidas"></textarea>
                 </mat-form-field>
@@ -306,5 +314,7 @@
       </div>
     </mat-step>
   </mat-vertical-stepper>
+
+  <app-loading *ngIf="loading"></app-loading>
 
 </div>

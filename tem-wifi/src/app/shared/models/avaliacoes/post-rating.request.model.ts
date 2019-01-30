@@ -1,11 +1,8 @@
-import { Local } from "../locais/local.model";
+export interface PostRatingRequest {
 
-export interface Avaliacao {
-
-    id?: string;
-    location?: Local;
-    userId?: string;
-    internet: AvaliacaoInternet;
+    locationId: string,
+    userId: string,
+    internet: PostInternetRatingRequest;
     foods: string;
     drinks: string;
     treatment: number;
@@ -13,10 +10,9 @@ export interface Avaliacao {
     comfort: number;
     noise: number;
     generalRating: number;
-    urlImagem?: string;
 }
 
-export interface AvaliacaoInternet {
+export interface PostInternetRatingRequest {
 
     hasInternet: boolean;
     speed: number;

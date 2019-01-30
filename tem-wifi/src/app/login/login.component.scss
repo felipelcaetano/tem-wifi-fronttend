@@ -43,11 +43,47 @@
             display: flex;
             justify-content: center;
             align-items: center;
+            flex-wrap: wrap;
 
             button {
                 color: white;
                 min-width: 100px;
                 margin: 0 15px;
+            }
+
+            #face-button {
+                width: 64%;
+                flex-shrink: 0;
+                background-color: #3B5998;
+                margin-top: 10px;
+                display: flex;
+                align-content: center;
+                justify-content: space-evenly;
+
+                img {
+                    width: 24px;
+                    background: white;
+                    margin-bottom: 5px;
+                    margin-right: 10px;
+                }
+            }
+
+            #google-button {
+                width: 64%;
+                flex-shrink: 0;
+                background-color: white;
+                margin-top: 10px;
+                display: flex;
+                align-content: center;
+                justify-content: space-evenly;
+                color: $dark-blue !important;
+
+                img {
+                    width: 24px;
+                    background: white;
+                    margin-bottom: 5px;
+                    margin-right: 10px;
+                }
             }
         }
 

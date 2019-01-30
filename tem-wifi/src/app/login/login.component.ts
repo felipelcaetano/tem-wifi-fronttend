@@ -7,6 +7,9 @@ import { StorageService } from '../storage/storage.service';
 import { StorageTemWiFi } from '../shared/models/login/storage-tem-wifi.model';
 import { Router } from '@angular/router';
 import { PostNewUserRequest } from '../shared/models/login/post-new-user-request.model';
+import { Subscription } from 'rxjs';
+import { AuthService as SocialAuthService, SocialUser } from "angularx-social-login";
+import { FacebookLoginProvider, GoogleLoginProvider } from "angularx-social-login";
 
 /** Error when invalid control is dirty, touched, or submitted. */
 export class MyErrorStateMatcher implements ErrorStateMatcher {
@@ -23,10 +26,18 @@ export class MyErrorStateMatcher implements ErrorStateMatcher {
 })
 export class LoginComponent implements OnInit {
 
-  constructor(private fb: FormBuilder, private loginService: LoginService, private storageService: StorageService, private router: Router) {
+  constructor(private fb: FormBuilder, private loginService: LoginService, private storageService: StorageService, private router: Router,
+    private socialAuthService: SocialAuthService) {
+
+    this.socialUser = null;
     this.loginService.logout();
   }
 
+  private socialUser: SocialUser;
+  public provider: string = 'temwifi';
+  private loggedIn: boolean;
+
+  loginSubs: Subscription = new Subscription();
   loggingIn: boolean = false;
   error: string = '';
   isNewUser: boolean = false;
@@ -38,12 +49,13 @@ export class LoginComponent implements OnInit {
 
   @Output() login: EventEmitter<string> = new EventEmitter();
 
-  onSubmitLogin({value}: {value: PostLoginRequest}) {
-    console.log(value);
+  onSubmitLogin({value}: {value: PostLoginRequest}, provider: string) {
+    console.log('Login: ', value);
 
     this.loggingIn = true;
     this.error = '';
 
+    value.provider = provider;
     this.loginService.login(value)
       .subscribe(
         resp => {
@@ -65,8 +77,17 @@ export class LoginComponent implements OnInit {
           this.error = error.error.message ? error.error.message : error.error;
           this.loggingIn = false;
         }
-        
       )
+  }
+
+  signInWithGoogle(): void {
+    this.provider = 'google';
+    this.socialAuthService.signIn(GoogleLoginProvider.PROVIDER_ID);
+  }
+ 
+  signInWithFB(): void {
+    this.provider = 'facebook';
+    this.socialAuthService.signIn(FacebookLoginProvider.PROVIDER_ID);
   }
 
   onSubmitNewUser({value}: {value: PostNewUserRequest}) {
@@ -127,7 +148,7 @@ export class LoginComponent implements OnInit {
 
   get newUserPass() { return this.newUserForm.get('newPass'); }
 
-  get passCheck() { return this.newUserForm.get('passCheck'); }
+  get passCheck() { return this.newUserForm.get('passCheck'); }  
 
   ngOnInit() {
     this.loginForm = this.fb.group({
@@ -140,6 +161,26 @@ export class LoginComponent implements OnInit {
       newPass: ['', Validators.required],
       passCheck: ['', Validators.required],
     })
+
+    this.socialAuthService.authState.subscribe((user) => {
+      console.log('New login Comp: ', user);
+
+      if(!this.socialUser) {
+
+        this.socialUser = user;
+        this.loggedIn = (user != null);
+
+        if(this.loggedIn) {
+
+          this.onSubmitLogin({value: {user: user.email}}, user.provider.toLowerCase() );
+        } 
+      }
+             
+    });
+  }
+
+  ngOnDestroy() {
+    this.loginSubs.unsubscribe();
   }
 
 }
