@@ -9,3 +9,21 @@ export const httpOptions = {
 }
 
 export const awsBaseUrl: string = environment.awsBaseUrl;
+
+export const locationTypes: any[] = [
+    {
+        value: 'cafe', view: 'Café'
+    },
+    {
+        value: 'restaurante', view: 'Restaurante'
+    },
+    {
+        value: 'coworking', view: 'Coworking'
+    },
+    {
+        value: 'livraria', view: 'Livraria'
+    },
+    {
+        value: 'outro', view: 'Outro'
+    }
+]

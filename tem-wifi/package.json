@@ -29,6 +29,7 @@
     "@brunoc/ngx-viacep": "^2.1.2",
     "@ngx-pwa/local-storage": "~7.2.0",
     "angularx-social-login": "^1.2.6",
+    "auth0-js": "^9.10.0",
     "core-js": "^2.5.4",
     "hammerjs": "^2.0.8",
     "ngx-google-places-autocomplete": "^2.0.3",

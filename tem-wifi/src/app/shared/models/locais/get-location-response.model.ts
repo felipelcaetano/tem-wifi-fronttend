@@ -3,6 +3,7 @@ import { DefaultResponse } from "../response/default-response.model";
 export interface GetLocationResponse extends DefaultResponse {
 
     id: string;
+    type: string;
     name: string;
     street: string;
     number: string;

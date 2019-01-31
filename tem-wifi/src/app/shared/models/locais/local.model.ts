@@ -1,6 +1,7 @@
 export interface Local {
 
     id?: string;
+    type?: string;
     name?: string;
     street: string;
     number?: string;

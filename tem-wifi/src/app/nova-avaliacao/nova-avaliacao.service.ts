@@ -19,6 +19,7 @@ export class NovaAvaliacaoService {
   createLocation(local: Local): Observable<PostLocationResponse> {
 
     let locationRequest: PostLocationRequest = {
+      type: local.type,
       name: local.name,
       city: local.city,
       complement: local.complement,

@@ -50,7 +50,6 @@ export class LoginComponent implements OnInit {
   @Output() login: EventEmitter<string> = new EventEmitter();
 
   onSubmitLogin({value}: {value: PostLoginRequest}, provider: string) {
-    console.log('Login: ', value);
 
     this.loggingIn = true;
     this.error = '';

@@ -37,6 +37,7 @@ export class MinhasAvaliacoesComponent implements OnInit {
                     console.log('Return get location: ', resp);
 
                     let local: Local = {
+                      type: resp.type,
                       name: resp.name,
                       city: resp.city,
                       complement: resp.complement,

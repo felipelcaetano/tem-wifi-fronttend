@@ -1,5 +1,6 @@
 export interface PostLocationRequest {
 
+    type: string;
     name: string;
     street: string;
     number: string;

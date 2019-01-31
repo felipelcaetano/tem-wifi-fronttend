@@ -21,6 +21,21 @@
           <form class="" [formGroup]="newLocationForm" (ngSubmit)="onSubmitLocation()" autocomplete="off">
             <ng-template matStepLabel>Local</ng-template>
 
+            <mat-form-field class="form-field">
+                <mat-select placeholder="Tipo" 
+                formControlName="tipo"
+                [errorStateMatcher]="matcher"
+                [(value)]="locationType">
+                    <mat-option *ngFor="let type of locationTypes" [value]="type.value">
+                    {{type.view}}
+                    </mat-option>
+                </mat-select>
+                <mat-hint>Informe o tipo do local</mat-hint>
+                <mat-error *ngIf="tipo.hasError('required')">
+                  Tipo é <strong>obrigatório</strong>
+                </mat-error>
+            </mat-form-field>
+
             <mat-form-field class="nome-field form-field">
               <input matInput #inputField
                 placeholder="Nome" 

@@ -8,6 +8,7 @@ import { NovaAvaliacaoService } from './nova-avaliacao.service';
 import { environment } from 'src/environments/environment.prod';
 import { StorageService } from '../storage/storage.service';
 import { Router } from '@angular/router';
+import { locationTypes } from '../shared/constants/constants';
 
 /** Error when invalid control is dirty, touched, or submitted. */
 export class MyErrorStateMatcher implements ErrorStateMatcher {
@@ -32,6 +33,9 @@ export class NovaAvaliacaoComponent implements OnInit, AfterViewInit {
   userId: string;
   loading: boolean = false;
 
+  locationTypes = locationTypes;
+
+  locationType: string;
   local: Local;
   avaliacao: Avaliacao = {
     comfort: 3, 
@@ -82,7 +86,6 @@ export class NovaAvaliacaoComponent implements OnInit, AfterViewInit {
   }
 
   onKeyupCep(event: any): void {
-    console.log(event.target.value);
 
     if(event.target.value.length == 8 && this.cepTemp != event.target.value) {
       this.cepTemp = event.target.value;
@@ -90,7 +93,6 @@ export class NovaAvaliacaoComponent implements OnInit, AfterViewInit {
       this.loading = true;
       this.viacep.buscarPorCep(event.target.value)
         .then( (endereco: Endereco) => {
-          console.log('Ednereco via cep: ', endereco);
           this.cep.setErrors(null);
           this.returViaCep(endereco);
           this.loading = false;
@@ -119,6 +121,7 @@ export class NovaAvaliacaoComponent implements OnInit, AfterViewInit {
     });
   }
 
+  get tipo() { return this.newLocationForm.get('tipo'); }
   get nome() { return this.newLocationForm.get('nome'); }
   get logradouro() { return this.newLocationForm.get('logradouro'); }
   get numero() { return this.newLocationForm.get('numero'); }
@@ -134,6 +137,7 @@ export class NovaAvaliacaoComponent implements OnInit, AfterViewInit {
 
   ngOnInit() {
     this.newLocationForm = this.fb.group({
+      tipo: ['', Validators.required],
       nome: ['', Validators.required],
       logradouro: ['', Validators.required],
       numero: ['', [Validators.required, Validators.pattern('^\\d{1,}$')]],
@@ -157,6 +161,7 @@ export class NovaAvaliacaoComponent implements OnInit, AfterViewInit {
       .subscribe(resp => {
         this.userId = resp.id;
 
+        this.local.type = this.locationType;
         this.local.complement = this.complemento.value;
         this.local.name = this.nome.value;
         this.local.number = this.numero.value;

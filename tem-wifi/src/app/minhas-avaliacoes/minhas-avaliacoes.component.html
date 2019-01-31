@@ -17,7 +17,7 @@
                 </mat-panel-title>
                 <mat-panel-description>
                   <span>
-                    {{avaliacao.location?.name}} - {{avaliacao.location?.street}}, {{avaliacao.location?.number}}
+                    {{avaliacao.location?.type}} {{avaliacao.location?.name}} - {{avaliacao.location?.street}}, {{avaliacao.location?.number}}
                     <span *ngIf="avaliacao.location?.complement"> - {{avaliacao.location?.complement}}</span>, {{avaliacao.location?.city}}
                   </span>
                   <span>{{avaliacao.location?.ratingsCount}} 
